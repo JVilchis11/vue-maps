@@ -5,7 +5,7 @@ import store from './store'
 
 // Verify if browser supports geolocation
 if( !navigator.geolocation ){
-    throw new Error("Your beowser not support GEolocation")
+    throw new Error("Your beowser not support Geolocation")
 }
 
 
