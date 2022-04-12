@@ -1,20 +1,17 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-  </div>
+  <map-component></map-component>
 </template>
 
 <script lang="ts">
 import { usePlacesStore } from '@/hooks';
 import { defineComponent } from 'vue';
-
+import MapComponent  from '@/components/map-componet/MapComponent.vue'
 
 export default defineComponent({
   name: 'HomeView',
-  components: {},
+  components: { MapComponent },
   setup(){
     usePlacesStore()
-
   }
 });
 </script>
