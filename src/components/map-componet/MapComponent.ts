@@ -1,4 +1,4 @@
-import { usePlacesStore } from "@/hooks";
+import { useMapStore, usePlacesStore } from "@/hooks";
 import Mapboxgl from "mapbox-gl";
 import { defineComponent, onMounted, ref, watch } from "vue";
 
@@ -7,6 +7,7 @@ export default defineComponent({
     setup(){
         const mapElement = ref<HTMLDivElement>()
         const {isUserLocationReady, userLocation} = usePlacesStore()
+        const { setMap } = useMapStore()
 
         const initMap = async () => {
 
@@ -27,10 +28,13 @@ export default defineComponent({
                 <p>Enjoy map box location</p>
             `)
 
-            const myLocationMarker = new Mapboxgl.Marker()
+            new Mapboxgl.Marker()
             .setPopup(popUpLocation)
             .setLngLat(userLocation.value!)
             .addTo(map)
+
+            // set map to store
+            setMap(map)
         }
 
         onMounted(()=>{
