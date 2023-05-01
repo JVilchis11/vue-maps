@@ -9,7 +9,7 @@ export const usePlacesStore = () =>{
     // when this hook being mounted on a view or component
     onMounted(() => {
         if( !store.getters['places/userLocationReady'] ){
-            store.dispatch('places/getInitialLocation')
+            store.dispatch('places/getInitialLocation',{msg:"hola param"})
         }
     })
 

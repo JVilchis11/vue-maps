@@ -4,7 +4,8 @@ import { StateInterface } from '../index';
 
 
 const actions: ActionTree<PlacesState, StateInterface> = {
-    getInitialLocation( { commit } ) {
+    getInitialLocation( { commit }, data ) {
+        
         navigator.geolocation.getCurrentPosition(
             ( {coords} ) => commit('setLongLat',{lng:coords.longitude, lat:coords.latitude}),
             (err) => {
@@ -13,6 +14,17 @@ const actions: ActionTree<PlacesState, StateInterface> = {
             }
             
         )
+    },
+    updateCoords( { commit }, data ) {
+        console.log("params", data);
+        /* navigator.geolocation.getCurrentPosition(
+            ( {coords} ) => commit('setLongLat',{lng:coords.longitude, lat:coords.latitude}),
+            (err) => {
+                console.error(err)
+                throw new Error("No Geoloaction")
+            }
+            
+        ) */
     }
 }
 
