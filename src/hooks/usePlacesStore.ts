@@ -9,7 +9,7 @@ export const usePlacesStore = () =>{
     // when this hook being mounted on a view or component
     onMounted(() => {
         if( !store.getters['places/userLocationReady'] ){
-            store.dispatch('places/getInitialLocation',{msg:"hola param"})
+            store.dispatch('places/getInitialLocation')
         }
     })
 
@@ -19,8 +19,9 @@ export const usePlacesStore = () =>{
         isLoading: computed( () => store.state.places.isLoadding),
         userLocation: computed( () => store.state.places.userLocation),
         /* GETTERS */
-        isUserLocationReady: computed<boolean>(()=>store.getters['places/isUserLocationReady'])
+        isUserLocationReady: computed<boolean>(()=>store.getters['places/isUserLocationReady']),
         /* ACTIONS */
+        updateLocation: (data = {}) => store.commit('places/setLongLat',data)
         /* MUTATIONS */
     }
 }

@@ -14,17 +14,6 @@ const actions: ActionTree<PlacesState, StateInterface> = {
             }
             
         )
-    },
-    updateCoords( { commit }, data ) {
-        console.log("params", data);
-        /* navigator.geolocation.getCurrentPosition(
-            ( {coords} ) => commit('setLongLat',{lng:coords.longitude, lat:coords.latitude}),
-            (err) => {
-                console.error(err)
-                throw new Error("No Geoloaction")
-            }
-            
-        ) */
     }
 }
 

@@ -1,13 +1,13 @@
 import { useMapStore, usePlacesStore } from "@/hooks";
 import Mapboxgl from "mapbox-gl";
 import { defineComponent, onMounted, ref, watch, computed } from "vue";
-import { socket, state } from "@/socketio";
+import { socket, stateSocketEvents } from "@/socketio";
 
 export default defineComponent({
   name: "MapComponent",
   setup() {
     const mapElement = ref<HTMLDivElement>();
-    const { isUserLocationReady, userLocation } = usePlacesStore();
+    const { isUserLocationReady, userLocation, updateLocation } = usePlacesStore();
     const { setMap } = useMapStore();
 
     const initMap = async () => {
@@ -39,15 +39,26 @@ export default defineComponent({
 
     onMounted(() => {
       if (isUserLocationReady.value) {
-        socket.connect();
-        console.log(state.fooEvents);
+        socket.connect();        
+        //console.log(state.fooEvents);
         return initMap();
       }
     });
 
     watch(isUserLocationReady, (newVal) => {
-      if (isUserLocationReady.value) initMap();
+      if (isUserLocationReady.value) return initMap();
     });
+
+    watch(stateSocketEvents, (newVal) => {
+        if (isUserLocationReady.value) {
+            const lat = newVal.fooEvents.latitude; 
+            const lng = newVal.fooEvents.longitude;  
+            updateLocation({lat,lng})
+            return initMap();
+        }
+        console.log(newVal.fooEvents);
+    });
+
 
     return {
       isUserLocationReady,

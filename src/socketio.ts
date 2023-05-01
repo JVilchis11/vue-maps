@@ -1,33 +1,35 @@
 import { reactive } from "vue";
 import { io } from "socket.io-client";
-import { useStore } from "vuex"
-import { StateInterface } from "@/store"
-export const state = reactive({
+import { usePlacesStore } from "./hooks";
+export const stateSocketEvents = reactive({
   connected: false,
-  fooEvents: [{}],
+  fooEvents: {
+    idtren:0,
+    latitude:0,
+    longitude:0,
+    velocidad:0
+  },
 });
 
 // "undefined" means the URL will be computed from the `window.location` object
 const URL = "http://localhost:8000/";
 
 export const socket = io(URL);
+const { updateLocation } = usePlacesStore();
 
 socket.on("connect", () => {
-  state.connected = true;
+  stateSocketEvents.connected = true;
 });
 
 socket.on("disconnect", () => {
-  state.connected = false;
+  stateSocketEvents.connected = false;
 });
 
 socket.on("coordenadas-actuales", (msg) => {
   console.log(msg);
-  state.fooEvents.push(msg);
+  stateSocketEvents.fooEvents = msg;
 });
 
 socket.on("coordenadas-from-server", (msg) => {
-  const store = useStore<StateInterface>();
-  store.dispatch('places/updateCoords',{msg:"hola param"})
-  console.log(msg);
-  state.fooEvents.push(msg);
+  stateSocketEvents.fooEvents = msg
 });
