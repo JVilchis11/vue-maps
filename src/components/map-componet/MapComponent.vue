@@ -1,5 +1,13 @@
 <script lang="ts" src="./MapComponent.ts" />
 
+<style>
+        .imagen-flotante {
+            float: right;
+            margin-right: 20px;
+        }
+    </style>
+
+
 <template>
     <div v-if="!isUserLocationReady"
         class="loading-map d-flex justify-content-center align-items-center">
@@ -8,6 +16,10 @@
             <span>Localizando...</span>
         </div>
     </div>
+
+<!--ZONA DE EXPERIMENTOS-->
+    <div> <img src="Imagen2.png" alt=""> </div>
+<!------------------------>
 
     <div v-show="isUserLocationReady"
         class="map-container"
@@ -19,8 +31,9 @@
 <style scoped>
 .map-container {
     position: fixed;
-    width: 100vw;
+    width: 95vw;
     height: 100vh;
+    right: 0;
 }
 
 .loading-map {
@@ -33,4 +46,5 @@
     width: 100vw;
     z-index: 9999;
 }
+
 </style>
